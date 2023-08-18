@@ -3,25 +3,23 @@
 #include "lexer.hpp"
 
 namespace lexer {
-Position::operator const char*() {
-    char *buff = new char[1024];
-    sprintf(buff, "%u:%u", line, column);
-    return buff;
+Position::operator std::string() const {
+    return std::to_string(line) + ":" + std::to_string(column);
 }
 
-SomeError::SomeError(Position position, char *message) 
+SomeError::SomeError(const Position &position, const std::string &message) 
     noexcept : message(message) {
-        strcat(message, position);
+        this->message.insert(0, std::string(position));
     }
 
 const char *SomeError::what() const noexcept {
-    return message;
+    return message.c_str();
 }
 
-Token::Token(Position position, TokenType type, std::string value) noexcept :
-    position(position), type(type), value(value) {}
+Token::Token(Position position, TokenType type, const std::string &value)
+    noexcept : position(position), type(type), value(value) {}
 
-std::vector<Token> lex(std::string source) noexcept {
+std::vector<Token> lex(const std::string &source) noexcept {
     std::vector<Token> tokens;
     Position position;
     for (char c : source) {
@@ -44,7 +42,7 @@ std::vector<Token> lex(std::string source) noexcept {
 
             case '\n':
             position.line++;
-            position.column = 1;
+            position.column = 0;
         }
     }
     return tokens;

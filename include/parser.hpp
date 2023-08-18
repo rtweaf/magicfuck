@@ -18,10 +18,12 @@ class Node {
     const NodeType type;
     const std::vector<Node> children;
 
-    Node(lexer::Position position, NodeType type) noexcept;
-    Node(lexer::Position position, NodeType type, std::vector<Node> children)
+    Node(const lexer::Position &, NodeType) noexcept;
+    Node(const lexer::Position &, NodeType, const std::vector<Node> &)
         noexcept(noexcept(type == NodeType::Loop));
+
+    bool operator ==(const parser::Node &) const;
 };
 
-std::vector<Node> parse(std::vector<lexer::Token> tokens) noexcept(false);
+std::vector<Node> parse(const std::vector<lexer::Token> &) noexcept(false);
 }

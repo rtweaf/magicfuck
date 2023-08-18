@@ -10,14 +10,15 @@ class Position {
     unsigned int line = 1;
     unsigned int column = 0;
 
-    operator const char*();
+    operator std::string() const;
+    bool operator ==(const Position &) const; // for tests
 };
 
 class SomeError : public std::exception {
-    char *message;
+    std::string message;
     
     public:
-    SomeError(Position position, char *message) noexcept;
+    SomeError(const Position &, const std::string &) noexcept;
     const char *what() const noexcept;
 };
 
@@ -32,8 +33,9 @@ class Token {
     const TokenType type;
     const std::string value;
 
-    Token(Position position, TokenType type, std::string value) noexcept;
+    Token(Position, TokenType, const std::string &) noexcept;
+    bool operator ==(const Token &) const; // for tests
 };
 
-std::vector<Token> lex(std::string source) noexcept;
+std::vector<Token> lex(const std::string &) noexcept;
 }
