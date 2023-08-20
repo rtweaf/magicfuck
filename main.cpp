@@ -6,7 +6,10 @@
 
 int main() {
     std::string line;
-    while (std::cin >> line) {
+    std::cin >> line;
+    try {
         parser::parse(lexer::lex(line));
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
     }
 }

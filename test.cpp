@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(lexer_test) {
 
 BOOST_AUTO_TEST_CASE(parser_test) {
     using namespace parser;
-    std::vector<Node> tree = parse(lexer::lex(">><++++---[,.\n]"));
+    std::vector<Node> tree = std::get<0>(parse(lexer::lex(">><++++---[,.\n]")));
     std::vector<Node> valid_tree = {
         Node(lexer::Position { .column = 1 }, NodeType::IncrementPtr),
         Node(lexer::Position { .column = 2 }, NodeType::IncrementPtr),

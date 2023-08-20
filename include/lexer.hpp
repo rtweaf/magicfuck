@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <exception>
+#include <format>
 
 namespace lexer {
 class Position {
@@ -18,7 +19,7 @@ class SomeError : public std::exception {
     std::string message;
     
     public:
-    SomeError(const Position &, const std::string &) noexcept;
+    SomeError(const std::string &) noexcept;
     const char *what() const noexcept;
 };
 
@@ -39,3 +40,11 @@ class Token {
 
 std::vector<Token> lex(const std::string &) noexcept;
 }
+
+template <>
+struct std::formatter<lexer::Position> : std::formatter<std::string> {
+    auto format(const lexer::Position &p, std::format_context &ctx) const {
+        return std::formatter<std::string>::format(std::format("{}:{}",
+            p.line, p.column), ctx);
+    }
+};

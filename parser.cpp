@@ -1,4 +1,6 @@
 #include <iostream>
+#include <format>
+#include <tuple>
 
 #include "parser.hpp"
 
@@ -10,24 +12,28 @@ Node::Node(const lexer::Position &position, NodeType type,
     const std::vector<Node> &children) noexcept(noexcept(type == NodeType::Loop))
         : position(position), type(type), children(children) {}
 
-std::vector<Node> parse(const std::vector<lexer::Token> &tokens) noexcept(false) {
+std::tuple<std::vector<Node>, int> parse(const std::vector<lexer::Token> &tokens,
+        unsigned int i, int depth) noexcept(false) {
     std::vector<Node> tree;
-    static int depth = 0;
     unsigned int local_i = 0;
-    static unsigned int i = 0;
-    for (; i<tokens.size(); ++i) {
+
+    for (; i<tokens.size(); i++) {
         switch (tokens[i].value[0]) {
             case '[':
             {
+                if (!(i+1<tokens.size())) {
+                    depth++;
+                    break;
+                }
                 i++;
-                depth++;
                 lexer::Position position = tokens[i - 1].position; // compiler changed args execs order
-                tree.push_back(Node(position, NodeType::Loop, parse(tokens)));
-                break;
+                std::tuple<std::vector<Node>, int> parsed_loop = parse(tokens, i, 1);
+                i = std::get<1>(parsed_loop);
+                tree.push_back(Node(position, NodeType::Loop, std::get<0>(parsed_loop)));
+                continue;
             }
         
             case ']':
-            i++;
             depth--;
             goto end;
 
@@ -59,11 +65,10 @@ std::vector<Node> parse(const std::vector<lexer::Token> &tokens) noexcept(false)
     }
 
     end:
-    if (depth > 0)
-        throw lexer::SomeError(tokens[i - local_i].position, (char*)"Expected `]`");
-    else if (depth < 0)
-        throw lexer::SomeError(tree[i - local_i].position, (char*)"Unexpected `[`");
+    if (depth > 0 || depth < 0) 
+        throw lexer::SomeError(std::format("\033[1m{}\033[0m: unmatched separator",
+            tokens[i - local_i].position));
 
-    return tree;
+    return {tree, i};
 }
 }

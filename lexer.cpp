@@ -1,16 +1,14 @@
 #include <string.h>
+#include <format>
 
 #include "lexer.hpp"
 
 namespace lexer {
 Position::operator std::string() const {
-    return std::to_string(line) + ":" + std::to_string(column);
+    return std::format("{}:{}", line, column);
 }
 
-SomeError::SomeError(const Position &position, const std::string &message) 
-    noexcept : message(message) {
-        this->message.insert(0, std::string(position));
-    }
+SomeError::SomeError(const std::string &message) noexcept : message(message) {}
 
 const char *SomeError::what() const noexcept {
     return message.c_str();
@@ -23,10 +21,10 @@ std::vector<Token> lex(const std::string &source) noexcept {
     std::vector<Token> tokens;
     Position position;
     for (char c : source) {
+        position.column++;
         switch (c) {
             case '[':
             case ']':
-            position.column++;
             tokens.push_back(Token(position, TokenType::Separator, std::string(1, c)));
             break;
 
@@ -36,7 +34,6 @@ std::vector<Token> lex(const std::string &source) noexcept {
             case '-':
             case '.':
             case ',':
-            position.column++;
             tokens.push_back(Token(position, TokenType::Operator, std::string(1, c)));
             break;
 
