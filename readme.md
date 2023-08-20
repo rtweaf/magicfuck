@@ -5,15 +5,15 @@ An advenced brainfuck machine.
 
 
 ## Todo
-[x] Lexer
-[x] Parser
-[ ] Executor
-[ ] Syscall adresses
-[ ] BF debugger
-[ ] BF optimalizer
-[ ] BF garbage collector
-[ ] Self-hosting
+* [x] Lexer
+* [x] Parser
+* [ ] Executor
+* [ ] Syscall adresses
+* [ ] BF debugger
+* [ ] BF optimalizer
+* [ ] BF garbage collector
+* [ ] Self-hosting
 
 ## Thanks a lot
-- @Pomarańczarz
-- @sbdswr
+- [@Pomaranczarz](https://github.com/Pomaranczarz)
+- [@sbdswr](https://github.com/sbdswr)
