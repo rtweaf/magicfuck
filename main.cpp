@@ -6,7 +6,7 @@
 
 int main() {
     std::string line;
-    std::cin >> line;
+    std::getline(std::cin, line);
     try {
         parser::parse(lexer::lex(line));
     } catch (const std::exception &e) {
