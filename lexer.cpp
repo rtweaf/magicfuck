@@ -4,10 +4,6 @@
 #include "lexer.hpp"
 
 namespace lexer {
-Position::operator std::string() const {
-    return std::format("{}:{}", line, column);
-}
-
 SomeError::SomeError(const std::string &message) noexcept : message(message) {}
 
 const char *SomeError::what() const noexcept {

@@ -11,7 +11,6 @@ class Position {
     unsigned int line = 1;
     unsigned int column = 0;
 
-    operator std::string() const;
     bool operator ==(const Position &) const; // for tests
 };
 
