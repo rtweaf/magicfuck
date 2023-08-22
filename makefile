@@ -1,6 +1,6 @@
 CXXFLAGS := -std=c++20 -Wall -Wextra -I include/
 
-magicfuck: main.o lexer.o parser.o
+magicfuck: main.o lexer.o parser.o executor.o
 	$(CXX) $(CXXFLAGS) $^ -o magicfuck
 
 magicfuck_debug: test.o lexer.o parser.o
@@ -9,6 +9,7 @@ magicfuck_debug: test.o lexer.o parser.o
 main.o: main.cpp include/lexer.hpp include/parser.hpp
 lexer.o: include/lexer.hpp
 parser.o: include/lexer.hpp include/parser.hpp
+executor.o: include/
 test.o: include/lexer.hpp include/parser.hpp
 
 .PHONY: clean

@@ -20,10 +20,9 @@
 *.a
 *.lib
 
-
 *.exe
 *.out
 *.app
 
 magicfuck
-.vscode
+.vscode/
