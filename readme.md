@@ -7,7 +7,7 @@ An advenced brainfuck machine.
 ## Todo
 * [x] Lexer
 * [x] Parser
-* [ ] Executor
+* [x] Executor
 * [ ] Syscall adresses
 * [ ] BF debugger
 * [ ] BF optimalizer

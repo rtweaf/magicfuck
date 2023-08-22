@@ -25,6 +25,7 @@ class Node {
     bool operator ==(const parser::Node &) const;
 };
 
-std::tuple<std::vector<Node>, int> parse(const std::vector<lexer::Token> &,
+std::tuple<std::vector<Node>, int>
+parse(const std::vector<lexer::Token> &,
     unsigned int = 0, int = 0) noexcept(false);
 }

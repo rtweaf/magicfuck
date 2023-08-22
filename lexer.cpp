@@ -1,5 +1,4 @@
 #include <string.h>
-#include <format>
 
 #include "lexer.hpp"
 

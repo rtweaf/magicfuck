@@ -12,8 +12,9 @@ Node::Node(const lexer::Position &position, NodeType type,
     const std::vector<Node> &children) noexcept(noexcept(type == NodeType::Loop))
         : position(position), type(type), children(children) {}
 
-std::tuple<std::vector<Node>, int> parse(const std::vector<lexer::Token> &tokens,
-        unsigned int i, int depth) noexcept(false) {
+std::tuple<std::vector<Node>, int>
+parse(const std::vector<lexer::Token> &tokens, unsigned int i, int depth)
+        noexcept(false) {
     std::vector<Node> tree;
     unsigned int local_i = 0;
 

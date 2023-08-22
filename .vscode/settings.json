@@ -72,6 +72,12 @@
         "thread": "cpp",
         "cinttypes": "cpp",
         "typeindex": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "csignal": "cpp",
+        "any": "cpp",
+        "codecvt": "cpp",
+        "executor": "cpp",
+        "netfwd": "cpp",
+        "future": "cpp"
     }
 }
