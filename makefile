@@ -9,7 +9,7 @@ magicfuck_debug: test.o lexer.o parser.o
 main.o: main.cpp include/lexer.hpp include/parser.hpp
 lexer.o: include/lexer.hpp
 parser.o: include/lexer.hpp include/parser.hpp
-executor.o: include/
+executor.o: include/executor.hpp include/parser.hpp
 test.o: include/lexer.hpp include/parser.hpp
 
 .PHONY: clean
